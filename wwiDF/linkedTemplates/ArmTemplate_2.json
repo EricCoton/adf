@@ -77,7 +77,8 @@
 								"datasetParameters": {
 									"source1": {},
 									"source2": {},
-									"sink1": {}
+									"sink1": {},
+									"sink2": {}
 								}
 							},
 							"staging": {},
