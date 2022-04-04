@@ -1,0 +1,32 @@
+{
+	"name": "SalesByMonth",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "SalesByMonth",
+				"container": "target"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "month",
+				"type": "INT32"
+			},
+			{
+				"name": "TotalSalesByMonth",
+				"type": "DECIMAL",
+				"precision": 28,
+				"scale": 2
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

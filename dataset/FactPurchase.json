@@ -1,0 +1,76 @@
+{
+	"name": "FactPurchase",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedToWwiDW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PurchaseKey",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "DateKey",
+				"type": "date"
+			},
+			{
+				"name": "SupplierKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "StockItemKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "WWIPurchaseOrderID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OrderedOuters",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OrderedQuantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ReceivedOuters",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Package",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsOrderFinalized",
+				"type": "bit"
+			},
+			{
+				"name": "LineageKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Amount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "Fact",
+			"table": "Purchase"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

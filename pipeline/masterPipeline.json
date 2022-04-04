@@ -1,0 +1,89 @@
+{
+	"name": "masterPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "wwiToOds",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "wwiToOds",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "IntegrationToDwDimStockItem",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "wwiToOds",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "IntegrationToDwDimStockItem",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "IntegrationToDwDimSupplier",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "wwiToOds",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "IntegrationToDwDimSupplier",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "IntegrationToDwFactPurchase",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "IntegrationToDwDimStockItem",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "IntegrationToDwDimSupplier",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "IntegrationToDwFactPurchase",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-04-03T23:54:31Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

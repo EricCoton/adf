@@ -1,0 +1,42 @@
+{
+	"name": "odsDeliveryMethods",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linkedToOds",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DeliveryMethodID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DeliveryMethodName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LastEditedBy",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ValidFrom",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ValidTo",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "Application",
+			"table": "DeliveryMethods"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,9 @@
+{
+	"name": "wwiDF",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "37119a36-4626-442e-8c05-de8924d69c5d",
+		"tenantId": "c9d9db3b-2742-45b1-a417-6d69e3e0c8ab"
+	}
+}

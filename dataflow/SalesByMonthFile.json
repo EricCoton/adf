@@ -1,0 +1,90 @@
+{
+	"name": "SalesByMonthFile",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "FactPurchase",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SalesByMonthFile",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "sort1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PurchaseKey as long,",
+				"          DateKey as date,",
+				"          SupplierKey as integer,",
+				"          StockItemKey as integer,",
+				"          WWIPurchaseOrderID as integer,",
+				"          OrderedOuters as integer,",
+				"          OrderedQuantity as integer,",
+				"          ReceivedOuters as integer,",
+				"          Package as string,",
+				"          IsOrderFinalized as boolean,",
+				"          LineageKey as integer,",
+				"          Amount as decimal(18,2)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 derive(month = month(DateKey)) ~> derivedColumn1",
+				"derivedColumn1 aggregate(groupBy(month),",
+				"     TotalSalesByMonth = sum(Amount)) ~> aggregate1",
+				"aggregate1 sort(asc(month, true)) ~> sort1",
+				"sort1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          StockItemKey as integer,",
+				"          WWIStockItemID as integer,",
+				"          StockItem as string,",
+				"          Color as string,",
+				"          SellingPackage as string,",
+				"          BuyingPackage as string,",
+				"          Brand as string,",
+				"          Size as string,",
+				"          LeadTimeDays as integer,",
+				"          QuantityPerOuter as integer,",
+				"          IsChillerStock as boolean,",
+				"          Barcode as string,",
+				"          TaxRate as decimal(18,3),",
+				"          UnitPrice as decimal(18,2),",
+				"          RecommendedRetailPrice as decimal(18,2),",
+				"          TypicalWeightPerUnit as decimal(18,3),",
+				"          Photo as binary,",
+				"          ValidFrom as timestamp,",
+				"          ValidTo as timestamp,",
+				"          LineageKey as integer",
+				"     ),",
+				"     format: 'parquet',",
+				"     partitionFileNames:['SalesByMonth'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

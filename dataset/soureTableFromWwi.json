@@ -1,0 +1,17 @@
+{
+	"name": "soureTableFromWwi",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedToWwi",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ListTable"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
