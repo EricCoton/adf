@@ -26,6 +26,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimSuppliers",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
 				}
 			],
 			"transformations": [
@@ -148,7 +155,42 @@
 				"          ValidFrom,",
 				"          ValidTo = validTo,",
 				"          LineageKey",
-				"     )) ~> sink1"
+				"     )) ~> sink1",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SupplierKey as integer,",
+				"          WWISupplierID as integer,",
+				"          Supplier as string,",
+				"          Category as string,",
+				"          PrimaryContact as string,",
+				"          SupplierReference as string,",
+				"          PaymentDays as integer,",
+				"          PostalCode as string,",
+				"          ValidFrom as timestamp,",
+				"          ValidTo as timestamp,",
+				"          LineageKey as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          WWISupplierID = {WWI Supplier ID},",
+				"          Supplier,",
+				"          Category,",
+				"          PrimaryContact = {Primary Contact},",
+				"          SupplierReference = {Supplier Reference},",
+				"          PaymentDays = {Payment Days},",
+				"          PostalCode = {Postal Code},",
+				"          ValidFrom = {Valid From},",
+				"          ValidTo = {Valid To},",
+				"          LineageKey = lineageKey",
+				"     )) ~> sink2"
 			]
 		}
 	}
